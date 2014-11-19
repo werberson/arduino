@@ -1,14 +1,14 @@
 #include <stdio.h>
 
 typedef struct{
-    char* nome;
-    char* telefone;
-}contato;
+    char nome[50];
+    char telefone[10];
+} contato;
 
 contato quebra(char* str) {
-  contato agenda; 
-  agenda.nome = strtok(str,"-");
-  agenda.telefone = strtok(NULL,"-");
+  contato agenda;
+  strcpy(agenda.nome, strtok(str,"-"));
+  strcpy(agenda.telefone, strtok(NULL,"-"));
   return agenda;
 }
 int line_count(FILE *n) {
@@ -36,10 +36,7 @@ int main(void)
         int count = 0;
 		while( (fgets(info, sizeof(info), arq))!=NULL ) {
                if(info[0] != '#') {
-             			contatos[count++] = quebra(info);
-             			printf("N: %s", contatos[count].nome);
-	                    printf("T: %s", contatos[count].telefone);
-             			//count++;
+                      contatos[count++] = quebra(info);
                 }
                                         
          }
@@ -47,8 +44,8 @@ int main(void)
 	printf("\n\n########## FOR ##########\n\n\n");
 	int i;
 	for(i = 0; i < qtd_linhas; i++) {
-          printf("N: %s", contatos[i].nome);
-	      printf("T: %s", contatos[i].telefone);
+          printf("Nome: %s", contatos[i].nome);
+	      printf("Telefone: %s", contatos[i].telefone);
     }
 	
 	fclose(arq);
